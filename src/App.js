@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 //Using state with functional Components
 // import React, { useState } from 'react';
 
+//Importing css modules as css
 import './App.css';
 import Person from './Person/Person'
 
@@ -39,6 +40,7 @@ class App extends Component {
 
   render() {
 
+    //One way of styling button with inline styles
     const buttonStyle = {
       backgroundColor: 'white',
       font: 'inherit',
@@ -51,6 +53,7 @@ class App extends Component {
         <h1>Hi, i'm a React Developer</h1>
         <p>This is just testing how React Works!</p>
         <button
+          //added style to button
           style={buttonStyle}
           onClick={this.switchNameHandler.bind(this, 'programmerX')}>Switch name!</button>
         <Person
@@ -61,6 +64,7 @@ class App extends Component {
         <Person
           name={this.state.persons[1].name}
           years={this.state.persons[1].age}
+          //Passing method references between parent-child
           click={this.switchNameHandler.bind(this, 'programmerZ')}
           changed={this.nameChangedHandler}>
           My hobbies are: listening to music
