@@ -16,20 +16,22 @@ class App extends Component {
   //fetch content
   state = {
     persons: [
-      {name: 'Max', age: 22 },
-      {name: 'Andrés', age: 33 },
-      {name: 'Stephanie', age: 44 }
+      {id: 'firstOne', name: 'Max', age: 22 },
+      {id: 'secondOne', name: 'Andrés', age: 33 },
+      {id: 'thirdOne', name: 'Stephanie', age: 44 }
     ],
     showPersons: false
   }
-  switchNameHandler = (newValue) => {
-    this.setState({
-      persons: [
-        { name: 'Programmer1', age: 66 },
-        { name: 'Programmer2', age: 33 },
-        { name: newValue, age: 17 }
-      ]
-    })
+
+  deletePersonHandler = (personIndex) => {
+    /**
+     * State should never be modified and Objects and arrays are
+     * referenced types, so that's not the way
+     * const persons = this.state.persons;
+     */
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons})
   }
 
   nameChangedHandler = (event) => {
@@ -74,23 +76,22 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <section>
-          <Person
-            name={this.state.persons[0].name}
-            years={this.state.persons[0].age}
-            //Not a good idea
-            click={() => this.switchNameHandler('programmerPi')} />
-          <Person
-            name={this.state.persons[1].name}
-            years={this.state.persons[1].age}
-            //Passing method references between parent-child
-            click={this.switchNameHandler.bind(this, 'programmerZ')}
-            changed={this.nameChangedHandler}>
-            My hobbies are: listening to music
-            </Person>
-          <Person
-            name={this.state.persons[2].name}
-            years={this.state.persons[2].age}
-            click={this.switchNameHandler.bind(this, 'programmerY')} />
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                click={this.deletePersonHandler.bind(this, index)}
+                name={person.name}
+                years={person.age}
+                /**
+                 * This key property is created by React for every component
+                 * in order to control which element should be updated in the
+                 * virtualDom.
+                 * Important!: never use index from map, anti-pattern, it could
+                 * change
+                 */
+                key={person.id}/>
+            )
+          })}
         </section>
       );
     }
