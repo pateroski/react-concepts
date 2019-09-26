@@ -15,7 +15,8 @@ class App extends Component {
       {name: 'Max', age: 22 },
       {name: 'Andrés', age: 33 },
       {name: 'Stephanie', age: 44 }
-    ]
+    ],
+    showPersons: false
   }
   switchNameHandler = (newValue) => {
     this.setState({
@@ -38,6 +39,14 @@ class App extends Component {
     })
   }
 
+  //Here, if we want to use this keyword can lead us to real problems
+  // togglePersonsHandler() {
+  // }
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow})
+  }
+
   render() {
 
     //One way of styling button with inline styles
@@ -55,24 +64,31 @@ class App extends Component {
         <button
           //added style to button
           style={buttonStyle}
-          onClick={this.switchNameHandler.bind(this, 'programmerX')}>Switch name!</button>
-        <Person
-          name={this.state.persons[0].name}
-          years={this.state.persons[0].age}
-          //Not a good idea
-          click={() => this.switchNameHandler('programmerPi')}/>
-        <Person
-          name={this.state.persons[1].name}
-          years={this.state.persons[1].age}
-          //Passing method references between parent-child
-          click={this.switchNameHandler.bind(this, 'programmerZ')}
-          changed={this.nameChangedHandler}>
-          My hobbies are: listening to music
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          years={this.state.persons[2].age}
-          click={this.switchNameHandler.bind(this, 'programmerY')}/>
+          onClick={this.togglePersonsHandler }>
+            Toggle persons
+        </button>
+        {
+          this.state.showPersons ?
+            <section>
+              <Person
+                name={this.state.persons[0].name}
+                years={this.state.persons[0].age}
+                //Not a good idea
+                click={() => this.switchNameHandler('programmerPi')}/>
+              <Person
+                name={this.state.persons[1].name}
+                years={this.state.persons[1].age}
+                //Passing method references between parent-child
+                click={this.switchNameHandler.bind(this, 'programmerZ')}
+                changed={this.nameChangedHandler}>
+                My hobbies are: listening to music
+              </Person>
+              <Person
+                name={this.state.persons[2].name}
+                years={this.state.persons[2].age}
+                click={this.switchNameHandler.bind(this, 'programmerY')}/>
+            </section> : null
+        }
       </article>
     );
 
