@@ -10,6 +10,10 @@ import Person from './Person/Person'
 
 // Classical way of using state with classBased Components
 class App extends Component {
+
+  //This is our data source. From here we should present info
+  //dinamically, the state. This info should be populated from
+  //fetch content
   state = {
     persons: [
       {name: 'Max', age: 22 },
@@ -47,8 +51,12 @@ class App extends Component {
     this.setState({showPersons: !doesShow})
   }
 
+  /**
+   * Everything inside render method is executed each time
+   * React re-render the component
+   */
   render() {
-
+    //This is not JSX, just JS code
     //One way of styling button with inline styles
     const buttonStyle = {
       backgroundColor: 'white',
@@ -57,7 +65,38 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
+
+    /**
+     * Better way of conditional rendering content
+     */
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <section>
+          <Person
+            name={this.state.persons[0].name}
+            years={this.state.persons[0].age}
+            //Not a good idea
+            click={() => this.switchNameHandler('programmerPi')} />
+          <Person
+            name={this.state.persons[1].name}
+            years={this.state.persons[1].age}
+            //Passing method references between parent-child
+            click={this.switchNameHandler.bind(this, 'programmerZ')}
+            changed={this.nameChangedHandler}>
+            My hobbies are: listening to music
+            </Person>
+          <Person
+            name={this.state.persons[2].name}
+            years={this.state.persons[2].age}
+            click={this.switchNameHandler.bind(this, 'programmerY')} />
+        </section>
+      );
+    }
+
     return (
+      //This is JSX
       <article className="App">
         <h1>Hi, i'm a React Developer</h1>
         <p>This is just testing how React Works!</p>
@@ -67,28 +106,7 @@ class App extends Component {
           onClick={this.togglePersonsHandler }>
             Toggle persons
         </button>
-        {
-          this.state.showPersons ?
-            <section>
-              <Person
-                name={this.state.persons[0].name}
-                years={this.state.persons[0].age}
-                //Not a good idea
-                click={() => this.switchNameHandler('programmerPi')}/>
-              <Person
-                name={this.state.persons[1].name}
-                years={this.state.persons[1].age}
-                //Passing method references between parent-child
-                click={this.switchNameHandler.bind(this, 'programmerZ')}
-                changed={this.nameChangedHandler}>
-                My hobbies are: listening to music
-              </Person>
-              <Person
-                name={this.state.persons[2].name}
-                years={this.state.persons[2].age}
-                click={this.switchNameHandler.bind(this, 'programmerY')}/>
-            </section> : null
-        }
+        {persons}
       </article>
     );
 
