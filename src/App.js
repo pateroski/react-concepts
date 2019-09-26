@@ -34,15 +34,35 @@ class App extends Component {
     this.setState({persons: persons})
   }
 
-  nameChangedHandler = (event) => {
+  nameChangedHandlerWithBind = (index, event) => {
     const { value } = event.target;
+    const persons = [...this.state.persons];
+    persons[index].name = value;
     this.setState({
-      persons: [
-        { name: 'Programmer1', age: 66 },
-        { name: value, age: 33 },
-        { name: 'Programmer3', age: 17 }
-      ]
+      persons: persons
     })
+  }
+
+  nameChangedHandlerWithArrowFunction = (event, id) => {
+    const { value } = event.target;
+
+    const personIndex= this.state.persons.findIndex((person) => {
+      return person.id === id;
+    })
+
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+
+    person.name = value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({
+      persons: persons
+    })
+
   }
 
   //Here, if we want to use this keyword can lead us to real problems
@@ -89,7 +109,10 @@ class App extends Component {
                  * Important!: never use index from map, anti-pattern, it could
                  * change
                  */
-                key={person.id}/>
+                key={person.id}
+                //That's the way you pass event and index. Event is the last parameter
+                // changed={this.nameChangedHandlerWithBind.bind(this, index)}/>
+                changed={(event) => this.nameChangedHandlerWithArrowFunction(event, person.id)} />
             )
           })}
         </section>
