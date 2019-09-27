@@ -81,7 +81,8 @@ class App extends Component {
     //This is not JSX, just JS code
     //One way of styling button with inline styles
     const buttonStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -117,13 +118,18 @@ class App extends Component {
           })}
         </section>
       );
+
+      //One way to add css properties dinamically
+      buttonStyle.backgroundColor = 'red';
     }
+
+    let paragraphClassList= ['red', 'bold'].join(' ');
 
     return (
       //This is JSX
       <article className="App">
         <h1>Hi, i'm a React Developer</h1>
-        <p>This is just testing how React Works!</p>
+        <p className={paragraphClassList}>This is just testing how React Works!</p>
         <button
           //added style to button
           style={buttonStyle}
