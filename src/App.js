@@ -80,6 +80,11 @@ class App extends Component {
   render() {
     //This is not JSX, just JS code
     //One way of styling button with inline styles
+
+    /**
+     * The problem with inline styles is that you can't add
+     * pseudo-selectors or media queries for example
+     */
     const buttonStyle = {
       backgroundColor: 'green',
       color: 'white',
@@ -123,13 +128,22 @@ class App extends Component {
       buttonStyle.backgroundColor = 'red';
     }
 
-    let paragraphClassList= ['red', 'bold'].join(' ');
+
+    const paragraphClassList= [];
+
+    if (this.state.persons.length <= 2) {
+      paragraphClassList.push('red'); //classList = ['red']
+    }
+
+    if (this.state.persons.length <= 1) {
+      paragraphClassList.push('bold') //classList = ['red', 'bold']
+    }
 
     return (
       //This is JSX
       <article className="App">
         <h1>Hi, i'm a React Developer</h1>
-        <p className={paragraphClassList}>This is just testing how React Works!</p>
+        <p className={paragraphClassList.join(' ')}>This is just testing how React Works!</p>
         <button
           //added style to button
           style={buttonStyle}
