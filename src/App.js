@@ -91,18 +91,7 @@ class App extends Component {
     //This is not JSX, just JS code
     //One way of styling button with inline styles
 
-    /**
-     * The problem with inline styles is that you can't add
-     * pseudo-selectors or media queries for example
-     */
-    const buttonStyle = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    }
+    let btnClass = null;
 
     /**
      * Better way of conditional rendering content
@@ -134,8 +123,8 @@ class App extends Component {
         </section>
       );
 
-      //One way to add css properties dinamically
-      buttonStyle.backgroundColor = 'red';
+      //One way to add css properties dinamically with nested classes
+      btnClass = classes.Red;
     }
 
 
@@ -156,9 +145,8 @@ class App extends Component {
         <h1>Hi, i'm a React Developer</h1>
         <p className={paragraphClassList.join(' ')}>This is just testing how React Works!</p>
         <button
-          //added style to button
-          style={buttonStyle}
-          onClick={this.togglePersonsHandler }>
+           className={btnClass}
+           onClick={this.togglePersonsHandler }>
             Toggle persons
         </button>
         {persons}
