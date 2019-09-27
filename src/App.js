@@ -4,8 +4,18 @@ import React, { Component } from 'react';
 //Using state with functional Components
 // import React, { useState } from 'react';
 
-//Importing css modules as css
-import './App.css';
+/**
+ * CSS Modules: https://github.com/css-modules/css-modules
+ * All styles in a CSS module are scoped locally by default
+ *
+ * In this case, all classes from App.css are wrapped in an
+ * object that you can use.
+ *
+ * The thing is that webpack, will setup a name for the class
+ * used on the CSS Module to a unique CSS className that will
+ * be used only when used
+ */
+import classes from './App.css';
 import Person from './Person/Person'
 
 // Classical way of using state with classBased Components
@@ -132,16 +142,17 @@ class App extends Component {
     const paragraphClassList= [];
 
     if (this.state.persons.length <= 2) {
-      paragraphClassList.push('red'); //classList = ['red']
+      //Using classes object
+      paragraphClassList.push(classes.red); //classList = ['red']
     }
 
     if (this.state.persons.length <= 1) {
-      paragraphClassList.push('bold') //classList = ['red', 'bold']
+      paragraphClassList.push(classes.bold) //classList = ['red', 'bold']
     }
 
     return (
       //This is JSX
-      <article className="App">
+      <article className={classes.App}>
         <h1>Hi, i'm a React Developer</h1>
         <p className={paragraphClassList.join(' ')}>This is just testing how React Works!</p>
         <button
