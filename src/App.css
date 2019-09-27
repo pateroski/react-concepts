@@ -13,3 +13,10 @@ so every style declared here can be assigned to other components
 .bold {
   font-weight: bold;
 }
+
+/**
+That's the way you use global classes with CSS Modules
+**/
+:global .Drugs {
+  color: black;
+}
