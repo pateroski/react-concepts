@@ -16,7 +16,8 @@ import React, { Component } from 'react';
  * be used only when used
  */
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person'
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 // Classical way of using state with classBased Components
 class App extends Component {
@@ -88,11 +89,6 @@ class App extends Component {
    * React re-render the component
    */
   render() {
-    //This is not JSX, just JS code
-    //One way of styling button with inline styles
-
-    let btnClass = null;
-
     /**
      * Better way of conditional rendering content
      */
@@ -101,54 +97,21 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <section>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                click={this.deletePersonHandler.bind(this, index)}
-                name={person.name}
-                years={person.age}
-                /**
-                 * This key property is created by React for every component
-                 * in order to control which element should be updated in the
-                 * virtualDom.
-                 * Important!: never use index from map, anti-pattern, it could
-                 * change
-                 */
-                key={person.id}
-                //That's the way you pass event and index. Event is the last parameter
-                // changed={this.nameChangedHandlerWithBind.bind(this, index)}/>
-                changed={(event) => this.nameChangedHandlerWithArrowFunction(event, person.id)} />
-            )
-          })}
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandlerWithArrowFunction} />
         </section>
       );
-
-      //One way to add css properties dinamically with nested classes
-      btnClass = classes.Red;
-    }
-
-
-    const paragraphClassList= [];
-
-    if (this.state.persons.length <= 2) {
-      //Using classes object
-      paragraphClassList.push(classes.red); //classList = ['red']
-    }
-
-    if (this.state.persons.length <= 1) {
-      paragraphClassList.push(classes.bold) //classList = ['red', 'bold']
     }
 
     return (
       //This is JSX
       <article className={classes.App}>
-        <h1>Hi, i'm a React Developer</h1>
-        <p className={paragraphClassList.join(' ')}>This is just testing how React Works!</p>
-        <button
-           className={btnClass}
-           onClick={this.togglePersonsHandler }>
-            Toggle persons
-        </button>
+        <Cockpit
+          persons={this.state.persons}
+          showPersons={this.state.showPersons}
+          clicked={this.togglePersonsHandler} />
         {persons}
       </article>
     );
