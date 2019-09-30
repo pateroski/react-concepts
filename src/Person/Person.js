@@ -6,11 +6,6 @@ import classes from './Person.css';
 //Input has two way binding. onChange invokes whatever function is added on
 //changed props and value is received from parent from name prop
 const person = (props) => {
-  const errorSpot = Math.random();
-
-  if (errorSpot > 0.7) {
-    throw new Error('something went wrong!');
-  }
   return (
     <section className={classes.Person}>
       <p onClick={props.click}>
