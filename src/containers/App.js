@@ -16,7 +16,7 @@ import React, { Component } from 'react';
  * be used only when used
  */
 import classes from './App.css';
-import Person from './Person/Person'
+import Person from '../components/Persons/Person/Person'
 
 // Classical way of using state with classBased Components
 class App extends Component {
