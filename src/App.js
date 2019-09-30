@@ -17,6 +17,7 @@ import React, { Component } from 'react';
  */
 import classes from './App.css';
 import Person from './Person/Person'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 // Classical way of using state with classBased Components
 class App extends Component {
@@ -103,21 +104,27 @@ class App extends Component {
         <section>
           {this.state.persons.map((person, index) => {
             return (
-              <Person
-                click={this.deletePersonHandler.bind(this, index)}
-                name={person.name}
-                years={person.age}
+              <ErrorBoundary
                 /**
                  * This key property is created by React for every component
                  * in order to control which element should be updated in the
                  * virtualDom.
                  * Important!: never use index from map, anti-pattern, it could
                  * change
+                 *
+                 * We're moving key prop to the outer element for the map
+                 * statement, because that the element we replicate
                  */
-                key={person.id}
-                //That's the way you pass event and index. Event is the last parameter
-                // changed={this.nameChangedHandlerWithBind.bind(this, index)}/>
-                changed={(event) => this.nameChangedHandlerWithArrowFunction(event, person.id)} />
+                key={person.id}>
+                <Person
+                  click={this.deletePersonHandler.bind(this, index)}
+                  name={person.name}
+                  years={person.age}
+
+                  //That's the way you pass event and index. Event is the last parameter
+                  // changed={this.nameChangedHandlerWithBind.bind(this, index)}/>
+                  changed={(event) => this.nameChangedHandlerWithArrowFunction(event, person.id)} />
+              </ ErrorBoundary>
             )
           })}
         </section>
