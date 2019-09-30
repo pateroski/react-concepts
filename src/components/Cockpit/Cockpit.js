@@ -22,7 +22,7 @@ const cockpit = (props) => {
   return (
 
     <section className={classes.Cockpit}>
-      <h1>Hi, i'm a React Developer</h1>
+      <h1>{props.appTitle}</h1>
       <p className={paragraphClassList.join(' ')}>This is just testing how React Works!</p>
       <button
         className={btnClass}
