@@ -22,9 +22,29 @@ import Cockpit from '../components/Cockpit/Cockpit';
 // Classical way of using state with classBased Components
 class App extends Component {
 
+  /**
+   * First lifecycle hook to be called.
+   * Actually (1) is the same as all the constructor definition
+   * with the initial state defined.
+   */
+  constructor(props) {
+    super(props);
+
+    console.log('[App.js] constructor')
+    // this.state = {
+    //   persons: [
+    //     {id: 'firstOne', name: 'Max', age: 22 },
+    //     {id: 'secondOne', name: 'Andrés', age: 33 },
+    //     {id: 'thirdOne', name: 'Stephanie', age: 44 }
+    //   ],
+    //   showPersons: false
+    // }
+  }
+
   //This is our data source. From here we should present info
   //dinamically, the state. This info should be populated from
-  //fetch content
+  //fetch content. More things: this is a modern way to make state
+  //to be declared as if it was declared inside the constructor (1).
   state = {
     persons: [
       {id: 'firstOne', name: 'Max', age: 22 },
@@ -32,6 +52,35 @@ class App extends Component {
       {id: 'thirdOne', name: 'Stephanie', age: 44 }
     ],
     showPersons: false
+  }
+
+  /**
+   * Second lifecycle hook. It's a static method. Here
+   * we should return the state;
+   */
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  /**
+   * Fourth lifecycle hook. Here is the only one where we can
+   * cause side effects which could block the JS execution, as
+   * an HTTP request, in the previous lifecycle creation hooks
+   * should be avoided
+   */
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
+  /**
+   * Fifth lifecycle hook. Executed after componentDidMount
+   * lifecycle hook. For preparing your state correctly and
+   * that's something that you can do in getDerivedStateFromProps
+   * or just the constructor. So this lifecycle hook will be removed
+   */
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
   }
 
   deletePersonHandler = (personIndex) => {
@@ -85,10 +134,14 @@ class App extends Component {
   }
 
   /**
+   * Third lifecycle hook
+   *
    * Everything inside render method is executed each time
    * React re-render the component
    */
   render() {
+
+    console.log('[App.js] render')
     /**
      * Better way of conditional rendering content
      */

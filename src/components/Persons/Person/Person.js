@@ -6,6 +6,7 @@ import classes from './Person.css';
 //Input has two way binding. onChange invokes whatever function is added on
 //changed props and value is received from parent from name prop
 const person = (props) => {
+  console.log('[Person.js] Person component rendering...');
   return (
     <section className={classes.Person}>
       <p onClick={props.click}>
