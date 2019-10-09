@@ -73,15 +73,26 @@ class App extends Component {
     console.log('[App.js] componentDidMount');
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(prevProps, nextProps) {
+    console.log('[App.js] componentDidUpdate');
+  }
+
   /**
    * Fifth lifecycle hook. Executed after componentDidMount
    * lifecycle hook. For preparing your state correctly and
    * that's something that you can do in getDerivedStateFromProps
    * or just the constructor. So this lifecycle hook will be removed
+   * and actually we receive a warning telling us that only older
+   * versions of React, supports it.
    */
-  componentWillMount() {
-    console.log('[App.js] componentWillMount');
-  }
+  // componentWillMount() {
+  //   console.log('[App.js] componentWillMount');
+  // }
 
   deletePersonHandler = (personIndex) => {
     /**
