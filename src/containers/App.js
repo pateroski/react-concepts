@@ -18,7 +18,8 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass/WithClass';
+import Aux from '../hoc/Aux/Aux';
+import withClass from '../hoc/withClass/withClass';
 
 // Classical way of using state with classBased Components
 class App extends Component {
@@ -199,11 +200,11 @@ class App extends Component {
 
     return (
       //This is JSX
-      <WithClass classes={classes.App}>
+      <Aux>
         <button onClick={this.toggleCockpit}>Toggle cockpit</button>
         {cockpit}
         {persons}
-      </WithClass>
+      </Aux>
     );
 
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
@@ -211,7 +212,7 @@ class App extends Component {
 }
 
 //Classical way of using state with classBased Components
-export default App;
+export default withClass(App, classes.App) ;
 
 // const app = props => {
 

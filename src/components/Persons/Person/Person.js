@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react';
 import classes from './Person.css';
 
 import Aux from '../../../hoc/Aux/Aux';
+import withClass from '../../../hoc/withClass/withClass';
 
 //Stateless component
 //Input has two way binding. onChange invokes whatever function is added on
@@ -49,4 +50,4 @@ class Person extends Component {
   }
 }
 
-export default Person;
+export default withClass(Person, classes.Person);
