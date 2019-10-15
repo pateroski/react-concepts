@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import classes from './Cockpit.css'
 
 const cockpit = (props) => {
 
+  const toggleBtnRef = useRef(null);
   /**
    * This is how you manage main lifecycle hooks with
    * functional components.
@@ -56,13 +57,14 @@ const cockpit = (props) => {
    */
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    const timer = setTimeout(() => {
-      alert('data saved to cloud!')
-    }, 1000);
-
+    /**
+     * We're doing it here, because the ref is executed in the render method,
+     * so assigned to the button element we're interested in. After that,
+     * we're ready to click it.
+     */
+    toggleBtnRef.current.click();
     //This will be executed each time the component ins unmounted
     return () => {
-      clearTimeout(timer);
       console.log('[Cockpit.js] cleanup work with useEffect');
     }
   }, []);
@@ -107,6 +109,7 @@ const cockpit = (props) => {
       <p className={paragraphClassList.join(' ')}>This is just testing how React Works!</p>
       <button
         className={btnClass}
+        ref={toggleBtnRef}
         onClick={props.clicked}>
         Toggle persons
         </button>
