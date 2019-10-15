@@ -53,6 +53,7 @@ class App extends Component {
       {id: 'secondOne', name: 'Andrés', age: 33 },
       {id: 'thirdOne', name: 'Stephanie', age: 44 }
     ],
+    changeCounter: 0,
     showPersons: false,
     showCockpit: true
   }
@@ -133,8 +134,26 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
-    this.setState({
-      persons: persons
+    /**
+     * This is not the correct way of updating the state, because
+     * it is not guaranteed that the previous state needed for update
+     * changeCounter accessed by this.state.changeCounter it's exactly
+     * the previous one
+     */
+    // this.setState({
+    //   persons: persons,
+    //   changeCounter: this.state.changeCounter + 1
+    // })
+
+    /**
+     * That's the best practice in case you need the previous state
+     * for updating the actual one
+     */
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      }
     })
 
   }
