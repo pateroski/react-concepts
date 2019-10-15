@@ -25,6 +25,29 @@ import withClass from '../../../hoc/withClass/withClass';
 // export default person;
 
 class Person extends Component {
+
+  /**
+   * React new way of using refs for selecting certain elements
+   * inside the DOM.
+   */
+  constructor(props) {
+    super(props);
+    this.inputElementRef = React.createRef();
+  }
+
+  componentDidMount() {
+    /**
+     * React old version of using refs
+     * It will focus the last input in the last person component
+     */
+    // this.inputElement.focus();
+
+    /**
+     * React new way of using refs for selecting certain elements
+     * inside the DOM.
+     */
+    this.inputElementRef.current.focus();
+  }
   render(){
     console.log('[Person.js] Person component rendering...');
     return (
@@ -33,7 +56,17 @@ class Person extends Component {
           I'm {this.props.name} and I'm {this.props.years} years old
         </p>
         <p>{this.props.children}</p>
-        <input type="text" onChange={this.props.changed} value={this.props.name}/>
+        <input
+          type="text"
+          /**
+           * Old React versions style of using refs. Actually it could
+           * be even an ID, and use the document.querySelector, but that's
+           * not the React style.
+           */
+          // ref={(inputElem) => this.inputElement = inputElem}
+          ref={this.inputElementRef}
+          onChange={this.props.changed}
+          value={this.props.name}/>
       </Aux>
 
       /**
