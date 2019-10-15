@@ -51,7 +51,8 @@ class App extends Component {
       {id: 'secondOne', name: 'Andrés', age: 33 },
       {id: 'thirdOne', name: 'Stephanie', age: 44 }
     ],
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   }
 
   /**
@@ -144,6 +145,11 @@ class App extends Component {
     this.setState({showPersons: !doesShow})
   }
 
+  toggleCockpit = () => {
+    const doesShow = this.state.showCockpit;
+    this.setState({showCockpit: !doesShow})
+  }
+
   /**
    * Third lifecycle hook
    *
@@ -169,14 +175,23 @@ class App extends Component {
       );
     }
 
-    return (
-      //This is JSX
-      <article className={classes.App}>
+    let cockpit = null;
+
+    if (this.state.showCockpit) {
+      cockpit = (
         <Cockpit
           appTitle={this.props.appTitle}
           persons={this.state.persons}
           showPersons={this.state.showPersons}
           clicked={this.togglePersonsHandler} />
+      );
+    }
+
+    return (
+      //This is JSX
+      <article className={classes.App}>
+        <button onClick={this.toggleCockpit}>Toggle cockpit</button>
+        {cockpit}
         {persons}
       </article>
     );

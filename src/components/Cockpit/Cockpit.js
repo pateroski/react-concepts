@@ -56,10 +56,32 @@ const cockpit = (props) => {
    */
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       alert('data saved to cloud!')
     }, 1000);
-  }, [])
+
+    //This will be executed each time the component ins unmounted
+    return () => {
+      clearTimeout(timer);
+      console.log('[Cockpit.js] cleanup work with useEffect');
+    }
+  }, []);
+
+  /**
+   * This second useEffect doesn't have a second parameter specifying
+   * when should run, so it will run everytime.
+   *
+   * The thing here is that the cleanup function will run everytime
+   * before the second useEffect in case we want to cancel some action
+   * before re-render, or after it updated it
+   */
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+
+    return () => {
+      console.log('[Cockpit.js] cleanup work with 2nd useEffect');
+    }
+  })
 
 
   const paragraphClassList = [];

@@ -81,6 +81,16 @@ class Persons extends Component {
   }
 
   /**
+   * Lifecycle hook added for doing some cleaning up work. Let's say
+   * that we've some event listeners that we want to remove each
+   * time this compoment is removed from DOM. We'll use that lifecycle
+   * for that
+   */
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount')
+  }
+
+  /**
    * Fourth lifecycle hook to be called when component updates
    */
   render() {
