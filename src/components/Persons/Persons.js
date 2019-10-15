@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import Person from './Person/Person';
 /**
@@ -22,7 +22,7 @@ import Person from './Person/Person';
 // export default persons;
 
 
-class Persons extends Component {
+class Persons extends PureComponent {
 
   /**
    * First lifecycle hook to be called when the component updates,
@@ -49,20 +49,31 @@ class Persons extends Component {
    *
    * Here we return true or false
    */
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('[Persons.js] shouldComponentUpdate');
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[Persons.js] shouldComponentUpdate');
 
-    /**
-     * nextProps.persons and props.persons are arrays. So here we
-     * are comparing the references to the persons array.
-     *
-     * Why it's working? -> becuase when we modify the state, always
-     * we make a new copy with the new persons array, so the references
-     * are different :)
-     */
-    return nextProps.persons !== this.props.persons ? true : false;
-    // return true;
-  }
+  //   /**
+  //    * nextProps.persons and props.persons are arrays. So here we
+  //    * are comparing the references to the persons array.
+  //    *
+  //    * Why it's working? -> becuase when we modify the state, always
+  //    * we make a new copy with the new persons array, so the references
+  //    * are different :)
+  //    *
+  //    * Another thing. If we should check for all props involving changes
+  //    * inside the Persons compoment, that is:
+  //    *
+  //    * this.props.persons
+  //    * this.props.clicked
+  //    * this.props.changed
+  //    *
+  //    * Instead of adding all this checks it's better to extend Persons
+  //    * component from PureComponent, which implements the same functionality
+  //    */
+  //   return nextProps.persons !== this.props.persons ||
+  //   nextProps.clicked !== this.props.clicked || nextProps.changed !== this.props.changed ? true : false;
+  //   // return true;
+  // }
 
   /**
    * Third lifecycle hook to be called when component updates
