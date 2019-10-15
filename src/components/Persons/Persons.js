@@ -51,7 +51,17 @@ class Persons extends Component {
    */
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Persons.js] shouldComponentUpdate');
-    return true;
+
+    /**
+     * nextProps.persons and props.persons are arrays. So here we
+     * are comparing the references to the persons array.
+     *
+     * Why it's working? -> becuase when we modify the state, always
+     * we make a new copy with the new persons array, so the references
+     * are different :)
+     */
+    return nextProps.persons !== this.props.persons ? true : false;
+    // return true;
   }
 
   /**

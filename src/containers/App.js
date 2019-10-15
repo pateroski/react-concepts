@@ -155,6 +155,15 @@ class App extends Component {
    *
    * Everything inside render method is executed each time
    * React re-render the component
+   *
+   * What's wrong here?
+   * Everything inside becomes re-render each time any state
+   * changes even if doesn't affect all the components.
+   *
+   * For controlling which compoments should update we use
+   * the lifecycle Hook shouldComponentUpdate and we check if
+   * something changes for class-based components and for
+   * functional components React.memo
    */
   render() {
 
