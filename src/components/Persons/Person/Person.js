@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 //Adding CSS modules
 import classes from './Person.css';
+
+import Aux from '../../../hoc/Aux/Aux';
 
 //Stateless component
 //Input has two way binding. onChange invokes whatever function is added on
@@ -24,13 +26,25 @@ class Person extends Component {
   render(){
     console.log('[Person.js] Person component rendering...');
     return (
-      <section className={classes.Person}>
+      <Aux>
         <p onClick={this.props.click}>
           I'm {this.props.name} and I'm {this.props.years} years old
         </p>
         <p>{this.props.children}</p>
         <input type="text" onChange={this.props.changed} value={this.props.name}/>
-      </section>
+      </Aux>
+
+      /**
+       * You can use Fragment the same way you use Aux for grouping adjacent JSX
+       * elements, because you can only return one expression (one element so to say).
+       */
+      // <Fragment>
+      //   <p onClick={this.props.click}>
+      //     I'm {this.props.name} and I'm {this.props.years} years old
+      //   </p>
+      //   <p>{this.props.children}</p>
+      //   <input type="text" onChange={this.props.changed} value={this.props.name}/>
+      // </Fragment>
     );
   }
 }
