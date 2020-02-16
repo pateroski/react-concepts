@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './Person.css';
 
 import Aux from '../../../hoc/Aux/Aux';
-import withClass from '../../../hoc/withClass/withClass';
+import withClass from '../../../hoc/WithClass/WithClass';
 
 //Stateless component
 //Input has two way binding. onChange invokes whatever function is added on

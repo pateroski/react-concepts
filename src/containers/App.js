@@ -19,7 +19,7 @@ import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux/Aux';
-import withClass from '../hoc/withClass/withClass';
+import withClass from '../hoc/WithClass/WithClass';
 
 // Classical way of using state with classBased Components
 class App extends Component {
