@@ -1,0 +1,7 @@
+/**
+The problem with global styles is that are not encapsulated
+so every style declared here can be assigned to other components
+**/
+.App {
+  text-align: center;
+}
